@@ -1,6 +1,6 @@
 import {APP_INITIALIZER, ApplicationConfig} from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { KeycloakService } from 'keycloak-angular';
+import {provideRouter} from '@angular/router';
+import {KeycloakAuthGuard, KeycloakService} from 'keycloak-angular';
 
 import { routes } from './app.routes';
 
@@ -25,9 +25,12 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any
         clientId: 'employee-management-service-frontend',
       },
       initOptions: {
-        onLoad: 'check-sso', //login-required auch möglich
-        checkLoginIframe: false,
+        onLoad: 'check-sso', //login-required auch möglich, führt zum Login-Zwang beim Aufruf der Startseite
+        checkLoginIframe: true,
+        checkLoginIframeInterval: 25
       },
       enableBearerInterceptor: true,
     });
 }
+
+

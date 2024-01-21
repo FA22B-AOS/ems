@@ -1,4 +1,4 @@
-<div class="sidebar-wrapper">
+<div class="sidebar-wrapper collapsed">
   <div class="sidebar">
 
     <div class="sidebar-toggler" (click)="toggleSidebar()">
@@ -7,7 +7,7 @@
     </div>
     <hr>
     <ul class="list-unstyled">
-      <li>
+      <li (click)="toggleLinkClick()">
         <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#qualification-collapse" data-bs-aria-expanded="false"><i class="bi bi-lightbulb"></i><span>Qualifikationen</span></a>
         <div class="collapse" id="qualification-collapse" style="">
           <ul class="list-unstyled bg-secondary">

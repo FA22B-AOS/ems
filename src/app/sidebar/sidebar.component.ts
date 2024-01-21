@@ -13,7 +13,26 @@ export class SidebarComponent {
 
   toggleSidebar() {
     // @ts-ignore
-    document.querySelector(".sidebar-wrapper").classList.toggle("collapsed");
+    const sidebar = document.querySelector(".sidebar-wrapper");
+    // @ts-ignore
+    sidebar.classList.toggle("collapsed");
+
+    // Remove the collapse class from all submenus
+    const collapseElements = document.querySelectorAll('.collapse');
+    // @ts-ignore
+    for (const collapseElement of collapseElements) {
+      collapseElement.classList.remove('show');
+    }
   }
 
+  toggleLinkClick(){
+    // @ts-ignore
+    const sidebar = document.querySelector(".sidebar-wrapper");
+    // @ts-ignore
+    if (sidebar.classList.contains("collapsed")){
+      // @ts-ignore
+      sidebar.classList.remove("collapsed");
+    }
+
+  }
 }

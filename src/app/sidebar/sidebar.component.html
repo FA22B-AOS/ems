@@ -1,4 +1,4 @@
-<div class="sidebar-wrapper collapsed">
+<div class="sidebar-wrapper">
   <div class="sidebar">
 
     <div class="sidebar-toggler" (click)="toggleSidebar()">
@@ -6,10 +6,38 @@
       <span><i class="bi bi-list"></i></span>
     </div>
     <hr>
-    <!-- nur provisorisch -->
-    <a href="#" class="sidebar-link" aria-label="test"><i class="bi bi-lightbulb"></i><span>Qualifikationen</span></a>
-    <a href="#" class="sidebar-link"><i class="bi bi-people"></i><span>Personalwesen</span></a>
-    <a href="#" class="sidebar-link"><i class="bi bi-sliders"></i><span>Einstellungen</span></a>
+    <ul class="list-unstyled">
+      <li>
+        <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#qualification-collapse" data-bs-aria-expanded="false"><i class="bi bi-lightbulb"></i><span>Qualifikationen</span><i class="bi bi-lightbulb"></i></a>
+        <div class="collapse" id="qualification-collapse" style="">
+          <ul class="list-unstyled bg-secondary">
+            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Overview</span></a></li>
+            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Updates</span></a></li>
+            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Reports</span></a></li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#employees-collapse" data-bs-aria-expanded="false"><i class="bi bi-people"></i><span>Personalwesen</span></a>
+        <div class="collapse" id="employees-collapse" style="">
+          <ul class="list-unstyled bg-secondary">
+            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Overview</span></a></li>
+            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Updates</span></a></li>
+            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Reports</span></a></li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#settings-collapse" data-bs-aria-expanded="false"><i class="bi bi-sliders"></i><span>Einstellungen</span></a>
+        <div class="collapse" id="settings-collapse" style="">
+          <ul class="list-unstyled bg-secondary">
+            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Overview</span></a></li>
+            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Updates</span></a></li>
+            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Reports</span></a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
   </div>
 
   <div class="main-content">

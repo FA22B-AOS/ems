@@ -60,6 +60,11 @@
   transition: margin-left 0.3s;
 }
 
+.sidebar .accordion {
+  background-color: #3b434b !important;
+}
+
+
 /* Sidebar collapsed */
 .collapsed .sidebar{
   width: 50px;

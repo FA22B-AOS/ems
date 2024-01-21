@@ -40,7 +40,6 @@
   text-decoration: none;
   overflow: hidden;
   width: 100%;
-
 }
 
 .sidebar-link span {
@@ -83,4 +82,14 @@
 .collapsed .main-content {
   margin-left: 0;
   transition: margin-left 0.3s;
+}
+
+/* Toggle submenu indicator */
+.sidebar-link[aria-expanded="true"] svg {
+  transform: rotate(90deg);
+  transition: 0.3s;
+}
+
+.sidebar-link[aria-expanded="false"] svg {
+  transition: 0.3s;
 }

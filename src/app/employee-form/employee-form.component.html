@@ -1,0 +1,61 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Mitarbeiter-Formular</h2>
+  <h3 *ngIf="isUpdate" class="text-center mb-4">ID: {{id}}</h3>
+
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="firstName" class="form-label">Vorname</label>
+        <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Vorname" required [(ngModel)]="employee.firstName">
+      </div>
+      <div class="col">
+        <label for="lastName" class="form-label">Nachname</label>
+        <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Nachname" required [(ngModel)]="employee.lastName">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="street" class="form-label">Straße & Hausnummer</label>
+      <input type="text" name="street" class="form-control" id="street" placeholder="Straße & Hausnummer" required [(ngModel)]="employee.street">
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="postalCode" class="form-label">Postleitzahl</label>
+        <input type="text" name="postalCode" class="form-control" id="postalCode" placeholder="Postleitzahl" required [(ngModel)]="employee.postcode" >
+      </div>
+      <div class="col">
+        <label for="city" class="form-label">Stadt</label>
+        <input type="text" name="city" class="form-control" id="city" placeholder="Stadt" required [(ngModel)]="employee.city">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">Telefon</label>
+      <input type="tel" name="phone" class="form-control" id="phone" placeholder="Telefonnummer" required [(ngModel)]="employee.phone">
+    </div>
+<!--
+    <div class="mb-3">
+      <label class="form-label">Qualifikationen</label>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          Qualifikationen auswählen
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><input type="checkbox" id="qualification1"> <label for="qualification1">Qualifikation 1</label></li>
+          <li><input type="checkbox" id="qualification2"> <label for="qualification2">Qualifikation 2</label></li>
+          <li><input type="checkbox" id="qualification3"> <label for="qualification3">Qualifikation 3</label></li>
+        </ul>
+      </div>
+    </div>
+-->
+    <div class="text-center">
+      <button *ngIf="isUpdate; else noUpdate" type="submit" class="btn btn-primary">Update</button>
+      <ng-template #noUpdate>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </ng-template>
+      <button type="reset" class="btn btn-danger">Abbrechen</button>
+    </div>
+  </form>
+</div>

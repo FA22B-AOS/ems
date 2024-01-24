@@ -5,11 +5,12 @@ import {KeycloakService} from "keycloak-angular";
 export const authGuard: CanActivateFn = (route, state) => {
 
   const keycloak = inject(KeycloakService);
-  if (keycloak.isLoggedIn()) {
-    return true; // Der Benutzer ist bereits angemeldet
-  } else {
-    // Der Benutzer ist nicht angemeldet, leite ihn zu Keycloak weiter
-    keycloak.login({redirectUri: window.location.origin});
-    return false;
-  }
+  return new Promise(async (resolve, reject) => {
+    if (!keycloak.isLoggedIn()) {
+      await keycloak.login();
+      resolve(false); // Der Benutzer ist bereits angemeldet
+    }
+    resolve(true);
+  })
+
 };

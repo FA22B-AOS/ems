@@ -55,7 +55,31 @@
       <ng-template #noUpdate>
         <button type="submit" class="btn btn-primary">Add</button>
       </ng-template>
-      <button type="reset" class="btn btn-danger">Abbrechen</button>
     </div>
   </form>
+  <div class="text-center">
+    <button class="btn btn-danger" (click)="open(confirmModal)">Abbrechen</button>
+  </div>
+
+    <!-- Modal -->
+    <ng-template #confirmModal let-modal>
+      <div class="modal-dialog">
+        <div class="modal-content custom-modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Bestätigung</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Sind Sie sicher, dass Sie abbrechen möchten?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('confirm')">Ja</button>
+            <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
 </div>

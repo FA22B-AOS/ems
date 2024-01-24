@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 import {Employee} from "../Employee";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-employee-form',
@@ -19,7 +20,15 @@ export class EmployeeFormComponent implements OnInit{
 
   protected employee: Employee = new Employee(-1,'','','','','','');
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private modalService: NgbModal) {
+  }
+
+  open(content: any) {
+    this.modalService.open(content).result.then((result) => {
+      if (result === 'confirm') {
+        window.location.href = window.location.origin+'/employees';
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -30,7 +39,6 @@ export class EmployeeFormComponent implements OnInit{
 
     if(this.isUpdate)
       this.getUserInfo();
-
   }
 
   private getUserInfo(): void{
@@ -39,7 +47,6 @@ export class EmployeeFormComponent implements OnInit{
     }).subscribe({
       next: (data: Employee) => {
         this.employee = data;
-        // Hier können Sie jetzt auf die Inhalte von employee zugreifen
         console.log(this.employee);
       },
       error: (error) => {
@@ -70,5 +77,4 @@ export class EmployeeFormComponent implements OnInit{
     }
     window.location.href = window.location.origin+'/employees';
   }
-
 }

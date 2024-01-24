@@ -28,7 +28,7 @@ export class EmployeeListComponent {
     this.employees$ = this.http.get<Employee[]>('/backend/employees', {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${this.bearer}`)
+        .set('Authorization', `Bearer ${this.tokenStorage.getBearerToken()}`)
     });
   }
 

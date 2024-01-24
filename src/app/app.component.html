@@ -1,2 +1,9 @@
-<app-sidebar></app-sidebar>
+<app-sidebar [isMobile]="isMobile"></app-sidebar>
+@if(isMobile) {
+  <div class="container">
+    <app-employee-list></app-employee-list>
+  </div>
+}
+
+
 

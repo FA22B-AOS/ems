@@ -95,8 +95,17 @@
 }
 
 @media screen and (max-width: 599px) {
+  .sidebar {
+    z-index: 9999;
+  }
+
   .collapsed .sidebar{
     width: 0;
+    overflow: hidden;
+  }
+
+  .main-content {
+    margin-left: 0;
   }
 
 }

@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Observable, of} from "rxjs";
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";

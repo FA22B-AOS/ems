@@ -8,5 +8,6 @@ export const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'employees', component: EmployeeListComponent, canActivate: [authGuard] },
   { path: 'qualifications', component: EmployeeListComponent, canActivate: [authGuard] },
-  { path: 'employee-form', component: EmployeeFormComponent, canActivate: [authGuard] },
+  { path: 'addemployee', component: EmployeeFormComponent, canActivate: [authGuard] },
+  { path: 'employee/:id', component: EmployeeFormComponent, canActivate: [authGuard] },
 ];

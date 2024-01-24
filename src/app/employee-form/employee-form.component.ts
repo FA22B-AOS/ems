@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {ActivatedRoute} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
@@ -47,7 +47,6 @@ export class EmployeeFormComponent implements OnInit{
     }).subscribe({
       next: (data: Employee) => {
         this.employee = data;
-        console.log(this.employee);
       },
       error: (error) => {
         console.error('Es gab einen Fehler beim Abrufen des Mitarbeiters:', error);

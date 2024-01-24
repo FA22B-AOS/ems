@@ -32,4 +32,13 @@ export class EmployeeListComponent {
   logout() {
     this.keycloak.logout('http://localhost:4200/');
   }
+
+  editEmployee(id: number){
+    if(id > 0)
+      window.location.href = window.location.origin+'/employee/'+id.toString();
+  }
+
+  addEmployee():void{
+    window.location.href = window.location.origin+'/addemployee';
+  }
 }

@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Observable, of} from "rxjs";
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
@@ -28,7 +28,7 @@ export class EmployeeListComponent {
     this.employees$ = this.http.get<Employee[]>('/backend/employees', {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${this.bearer}`)
+        .set('Authorization', `Bearer ${this.tokenStorage.getBearerToken()}`)
     });
   }
 

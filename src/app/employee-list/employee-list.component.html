@@ -1,9 +1,27 @@
-<h1>Mitarbeiterübersicht</h1>
-<ul>
-  <li *ngFor="let e of employees$ | async" (click)="editEmployee(e.id || -1)">
-    {{e.lastName }}, {{e.firstName}}
-  </li>
-</ul>
-<button (click)="addEmployee()">Neuer Mitarbeiter</button>
-<button (click)="logout()">Logout</button>
+<div class="container mt-5">
+  <div class="table-container">
+    <h2>Mitarbeiterübersicht</h2>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Nachname</th>
+        <th>Vorname</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let e of employees$ | async" (click)="editEmployee(e.id || -1)">
+        <td>{{e.lastName }}</td>
+        <td>{{e.firstName}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<div class="fixed-bottom-bar">
+  <button type="button" class="btn btn-primary me-3" (click)="addEmployee()">Neuer Mitarbeiter</button>
+  <button type="button" class="btn btn-secondary" (click)="logout()">Logout</button>
+</div>
+
+
 

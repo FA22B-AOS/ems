@@ -1,0 +1,19 @@
+.table-container {
+  max-width: 600px;
+  margin: auto;
+}
+.table-hover tbody tr:hover {
+  background-color: #f5f5f5;
+  cursor: url('data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9IndoaXRlIiBjbGFzcz0iYmkgYmktcGVuY2lsLWZpbGwiIHZpZXdCb3g9IjAgMCAxNiAxNiI+CiAgPHBhdGggZD0iTTEyLjg1NC4xNDZhLjUuNSAwIDAgMC0uNzA3IDBMMTAuNSAxLjc5MyAxNC4yMDcgNS41bDEuNjQ3LTEuNjQ2YS41LjUgMCAwIDAgMC0uNzA4em0uNjQ2IDYuMDYxTDkuNzkzIDIuNSAzLjI5MyA5SDMuNWEuNS41IDAgMCAxIC41LjV2LjVoLjVhLjUuNSAwIDAgMSAuNS41di41aC41YS41LjUgMCAwIDEgLjUuNXYuNWguNWEuNS41IDAgMCAxIC41LjV2LjIwN3ptLTcuNDY4IDcuNDY4QS41LjUgMCAwIDEgNiAxMy41VjEzaC0uNWEuNS41IDAgMCAxLS41LS41VjEyaC0uNWEuNS41IDAgMCAxLS41LS41VjExaC0uNWEuNS41IDAgMCAxLS41LS41VjEwaC0uNWEuNS41IDAgMCAxLS4xNzUtLjAzMmwtLjE3OS4xNzhhLjUuNSAwIDAgMC0uMTEuMTY4bC0yIDVhLjUuNSAwIDAgMCAuNjUuNjVsNS0yYS41LjUgMCAwIDAgLjE2OC0uMTF6Ii8+Cjwvc3ZnPgo=') 16 16, auto;
+}
+.fixed-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #31373D; /* Hintergrundfarbe der Leiste */
+  padding: 10px 0;
+  text-align: center;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+

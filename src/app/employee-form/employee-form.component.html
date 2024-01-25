@@ -2,7 +2,7 @@
   <h2 class="text-center mb-4">Mitarbeiter-Formular</h2>
   <h3 *ngIf="isUpdate" class="text-center mb-4">ID: {{id}}</h3>
 
-  <form #form="ngForm" (ngSubmit)="onSubmit()">
+  <form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
 
     <div class="row mb-3">
       <div class="col">
@@ -50,16 +50,7 @@
       </div>
     </div>
 -->
-    <div class="text-center">
-      <button *ngIf="isUpdate; else noUpdate" type="submit" class="btn btn-primary">Update</button>
-      <ng-template #noUpdate>
-        <button type="submit" class="btn btn-primary">Add</button>
-      </ng-template>
-    </div>
   </form>
-  <div class="text-center">
-    <button class="btn btn-danger" (click)="open(confirmModal)">Abbrechen</button>
-  </div>
 
     <!-- Modal -->
     <ng-template #confirmModal let-modal>
@@ -81,5 +72,13 @@
         </div>
       </div>
     </ng-template>
+</div>
 
+<!-- Buttons -->
+<div class="fixed-bottom-bar">
+  <button *ngIf="isUpdate; else noUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Speichern</button>
+  <ng-template #noUpdate>
+    <button (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Hinzufügen</button>
+  </ng-template>
+  <button class="btn btn-danger" (click)="open(confirmModal)">Abbrechen</button>
 </div>

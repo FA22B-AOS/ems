@@ -23,7 +23,7 @@
     <div class="row mb-3">
       <div class="col">
         <label for="postalCode" class="form-label">Postleitzahl</label>
-        <input type="text" name="postalCode" class="form-control" id="postalCode" placeholder="Postleitzahl" required [(ngModel)]="employee.postcode" >
+        <input type="text" minlength="5" maxlength="5" name="postalCode" class="form-control" id="postalCode" placeholder="Postleitzahl" required [(ngModel)]="employee.postcode" >
       </div>
       <div class="col">
         <label for="city" class="form-label">Stadt</label>
@@ -54,31 +54,25 @@
 
     <!-- Modal -->
     <ng-template #confirmModal let-modal>
-      <div class="modal-dialog">
-        <div class="modal-content custom-modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Bestätigung</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Sind Sie sicher, dass Sie abbrechen möchten?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.close('confirm')">Ja</button>
-            <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
-          </div>
-        </div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Sind Sie sicher, dass Sie abbrechen möchten?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('confirm')">Ja</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
       </div>
     </ng-template>
 </div>
 
 <!-- Buttons -->
 <div class="fixed-bottom-bar">
-  <button *ngIf="isUpdate; else noUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Speichern</button>
+  <button *ngIf="isUpdate; else noUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3" [disabled]="!employeeForm.valid">Speichern</button>
   <ng-template #noUpdate>
-    <button (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Hinzufügen</button>
+    <button (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3" [disabled]="!employeeForm.valid">Hinzufügen</button>
   </ng-template>
   <button class="btn btn-danger" (click)="open(confirmModal)">Abbrechen</button>
 </div>

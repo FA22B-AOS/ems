@@ -55,6 +55,8 @@ export class EmployeeFormComponent implements OnInit{
   }
 
   protected onSubmit():void{
+    if(this.employee.postcode?.length != 5)
+      return;
     if(this.isUpdate){
       this.http.put('/backend/employees/'+this.id, this.employee).subscribe({
         next: (response) => {

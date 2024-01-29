@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 import {Employee} from "../Employee";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Observable, of} from "rxjs";
+import {Qualification} from "../Qualification";
 
 @Component({
   selector: 'app-employee-form',
@@ -18,12 +20,40 @@ export class EmployeeFormComponent implements OnInit{
   protected id: string | null = null;
   protected isUpdate: boolean = false;
 
-  protected employee: Employee = new Employee(-1,'','','','','','');
+  protected employee: Employee = new Employee(-1,'','','','','','',[]);
+  protected qualifications$: Observable<Qualification[]>;
+  @ViewChildren('checkboxRef') checkboxes!: QueryList<ElementRef>;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private modalService: NgbModal) {
+    this.qualifications$ = of([]);
+    this.fetchQualifications();
   }
 
-  open(content: any) {
+  protected fetchQualifications() {
+    this.qualifications$ = this.http.get<Employee[]>('/backend/qualifications', {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    });
+  }
+
+  protected createQualification(inputRef: HTMLInputElement):void{
+    let body = {
+      skill: inputRef.value
+    }
+    this.http.post('/backend/qualifications', body).subscribe({
+      next: (response) => {
+        console.log('Serverantwort: ',response);
+        this.fetchQualifications();
+        inputRef.value = '';
+      },
+      error: (error) => {
+        console.error('Fehler: ',error);
+        inputRef.value = '';
+      }
+    });
+  }
+
+  protected open(content: any) {
     this.modalService.open(content).result.then((result) => {
       if (result === 'confirm') {
         window.location.href = window.location.origin+'/employees';
@@ -54,28 +84,42 @@ export class EmployeeFormComponent implements OnInit{
     });
   }
 
-  protected onSubmit():void{
-    if(this.employee.postcode?.length != 5)
+  protected async onSubmit(): Promise<void> {
+    if (this.employee.postcode?.length != 5)
       return;
-    if(this.isUpdate){
-      this.http.put('/backend/employees/'+this.id, this.employee).subscribe({
+
+    let idArray: number[] = [];
+
+    this.checkboxes.forEach((checkboxRef) => {
+      const checkbox = checkboxRef.nativeElement;
+      if (checkbox.checked) {
+        const numStr = checkbox.id.replace(/\D/g, '');
+        idArray.push(parseInt(numStr, 10));
+      }
+    });
+
+    this.employee.skillSet = idArray;
+
+
+    if (this.isUpdate) {
+      this.http.put('/backend/employees/' + this.id, this.employee).subscribe({
         next: (response) => {
-          console.log('Serverantwort: ',response);
+          console.log('Serverantwort: ', response);
         },
         error: (error) => {
-          console.error('Fehler: ',error);
+          console.error('Fehler: ', error);
         }
       });
-    }else{
+    } else {
       this.http.post('/backend/employees', this.employee).subscribe({
         next: (response) => {
-          console.log('Serverantwort: ',response);
+          console.log('Serverantwort: ', response);
         },
         error: (error) => {
-          console.error('Fehler: ',error);
+          console.error('Fehler: ', error);
         }
       });
     }
-    window.location.href = window.location.origin+'/employees';
+    window.location.href = window.location.origin + '/employees';
   }
 }

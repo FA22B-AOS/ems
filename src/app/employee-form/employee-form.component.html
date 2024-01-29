@@ -35,21 +35,49 @@
       <label for="phone" class="form-label">Telefon</label>
       <input type="tel" name="phone" class="form-control" id="phone" placeholder="Telefonnummer" required [(ngModel)]="employee.phone">
     </div>
-<!--
+
+    <!-- Qualifications -->
     <div class="mb-3">
+      <label class="form-label">Qualifikationen</label>
+
+      <!-- Dropdown mit Text Input und Checkboxen -->
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          Qualifikationen auswählen
+        </button>
+        <div class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton">
+          <!-- Text Input für neue Qualifikation -->
+          <div class="input-group mb-2">
+            <input #newQualification type="text" class="form-control" placeholder="Neue Qualifikation" aria-label="Neue Qualifikation">
+            <a (click)="createQualification(newQualification)" class="btn btn-outline-primary">+</a>
+          </div>
+
+          <!-- Checkboxen für vorhandene Qualifikationen -->
+          <div style="max-height: 200px; overflow-y: auto;">
+            <ul class="list-unstyled">
+              <li *ngFor="let q of qualifications$ | async">
+                <input type="checkbox" [id]="'qualification' + q.id" #checkboxRef> <!--[checked]="isQualificationInSkillset(q)">-->
+                <label for="qualification{{q.id}}">{{q.skill}}</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--<div class="mb-3">
       <label class="form-label">Qualifikationen</label>
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
           Qualifikationen auswählen
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li><input type="checkbox" id="qualification1"> <label for="qualification1">Qualifikation 1</label></li>
-          <li><input type="checkbox" id="qualification2"> <label for="qualification2">Qualifikation 2</label></li>
-          <li><input type="checkbox" id="qualification3"> <label for="qualification3">Qualifikation 3</label></li>
+          <li *ngFor="let q of qualifications$ | async"><input type="checkbox" id="qualification{{q.id}}"> <label for="qualification{{q.id}}">{{q.skill}}</label></li>
         </ul>
       </div>
-    </div>
--->
+    </div>-->
+
   </form>
 
     <!-- Modal -->
@@ -70,9 +98,9 @@
 
 <!-- Buttons -->
 <div class="fixed-bottom-bar">
-  <button *ngIf="isUpdate; else noUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3" [disabled]="!employeeForm.valid">Speichern</button>
+  <button *ngIf="isUpdate; else noUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Speichern</button>
   <ng-template #noUpdate>
-    <button (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3" [disabled]="!employeeForm.valid">Hinzufügen</button>
+    <button (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Hinzufügen</button>
   </ng-template>
   <button class="btn btn-danger" (click)="open(confirmModal)">Abbrechen</button>
 </div>

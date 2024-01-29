@@ -4,6 +4,7 @@ import {Observable, of} from "rxjs";
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 import {Employee} from "../Employee";
 import {KeycloakService} from "keycloak-angular";
+import {Qualification} from "../Qualification";
 
 @Component({
   selector: 'app-employee-list',

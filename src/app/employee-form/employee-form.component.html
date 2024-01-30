@@ -2,7 +2,7 @@
   <h2 class="text-center mb-4">Mitarbeiter-Formular</h2>
   <h3 *ngIf="isUpdate" class="text-center mb-4">ID: {{id}}</h3>
 
-  <form #form="ngForm" (ngSubmit)="onSubmit()">
+  <form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
 
     <div class="row mb-3">
       <div class="col">
@@ -23,7 +23,7 @@
     <div class="row mb-3">
       <div class="col">
         <label for="postalCode" class="form-label">Postleitzahl</label>
-        <input type="text" name="postalCode" class="form-control" id="postalCode" placeholder="Postleitzahl" required [(ngModel)]="employee.postcode" >
+        <input type="text" minlength="5" maxlength="5" name="postalCode" class="form-control" id="postalCode" placeholder="Postleitzahl" required [(ngModel)]="employee.postcode" >
       </div>
       <div class="col">
         <label for="city" class="form-label">Stadt</label>
@@ -35,51 +35,73 @@
       <label for="phone" class="form-label">Telefon</label>
       <input type="tel" name="phone" class="form-control" id="phone" placeholder="Telefonnummer" required [(ngModel)]="employee.phone">
     </div>
-<!--
+
+    <!-- Qualifications -->
     <div class="mb-3">
+      <label class="form-label">Qualifikationen</label>
+
+      <!-- Dropdown mit Text Input und Checkboxen -->
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          Qualifikationen auswählen
+        </button>
+        <div class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton">
+          <!-- Text Input für neue Qualifikation -->
+          <div class="input-group mb-2">
+            <input #newQualification type="text" class="form-control" placeholder="Neue Qualifikation" aria-label="Neue Qualifikation">
+            <a (click)="createQualification(newQualification)" class="btn btn-outline-primary">+</a>
+          </div>
+
+          <!-- Checkboxen für vorhandene Qualifikationen -->
+          <div style="max-height: 200px; overflow-y: auto;">
+            <ul class="list-unstyled">
+              <li *ngFor="let q of qualifications$ | async">
+                <input type="checkbox" [id]="'qualification' + q.id" #checkboxRef> <!--[checked]="isQualificationInSkillset(q)">-->
+                <label for="qualification{{q.id}}">{{q.skill}}</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--<div class="mb-3">
       <label class="form-label">Qualifikationen</label>
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
           Qualifikationen auswählen
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li><input type="checkbox" id="qualification1"> <label for="qualification1">Qualifikation 1</label></li>
-          <li><input type="checkbox" id="qualification2"> <label for="qualification2">Qualifikation 2</label></li>
-          <li><input type="checkbox" id="qualification3"> <label for="qualification3">Qualifikation 3</label></li>
+          <li *ngFor="let q of qualifications$ | async"><input type="checkbox" id="qualification{{q.id}}"> <label for="qualification{{q.id}}">{{q.skill}}</label></li>
         </ul>
       </div>
-    </div>
--->
-    <div class="text-center">
-      <button *ngIf="isUpdate; else noUpdate" type="submit" class="btn btn-primary">Update</button>
-      <ng-template #noUpdate>
-        <button type="submit" class="btn btn-primary">Add</button>
-      </ng-template>
-    </div>
+    </div>-->
+
   </form>
-  <div class="text-center">
-    <button class="btn btn-danger" (click)="open(confirmModal)">Abbrechen</button>
-  </div>
 
     <!-- Modal -->
     <ng-template #confirmModal let-modal>
-      <div class="modal-dialog">
-        <div class="modal-content custom-modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Bestätigung</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Sind Sie sicher, dass Sie abbrechen möchten?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.close('confirm')">Ja</button>
-            <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
-          </div>
-        </div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Sind Sie sicher, dass Sie abbrechen möchten?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('confirm')">Ja</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
       </div>
     </ng-template>
+</div>
 
+<!-- Buttons -->
+<div class="fixed-bottom-bar">
+  <button *ngIf="isUpdate; else noUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Speichern</button>
+  <button *ngIf="isUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-danger me-3">Löschen</button>
+  <ng-template #noUpdate>
+    <button (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Hinzufügen</button>
+  </ng-template>
+  <button class="btn btn-secondary" (click)="open(confirmModal)">Abbrechen</button>
 </div>

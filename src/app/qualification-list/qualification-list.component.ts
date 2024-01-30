@@ -5,6 +5,7 @@ import {KeycloakService} from "keycloak-angular";
 import {Qualification} from "../Qualification";
 import {HTTPServiceService} from "../httpservice.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-qualification-list',
@@ -17,7 +18,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 export class QualificationListComponent {
   qualifications$: Observable<Qualification[]>;
 
-  constructor(private http: HttpClient,private httpService: HTTPServiceService, private keycloak: KeycloakService) {
+  constructor(private router: Router, private http: HttpClient,private httpService: HTTPServiceService, private keycloak: KeycloakService) {
     this.qualifications$ = of([]);
     this.fetchData();
   }
@@ -40,6 +41,6 @@ export class QualificationListComponent {
 
   protected viewQuali(id: number){
     if(id > 0)
-      window.location.href = window.location.origin+'/qualification/'+id.toString();
+      this.router.navigateByUrl('/qualification/'+id.toString())
   }
 }

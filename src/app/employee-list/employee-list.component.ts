@@ -1,15 +1,16 @@
 import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Observable, of} from "rxjs";
-import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import {Employee} from "../Employee";
 import {KeycloakService} from "keycloak-angular";
 import {HTTPServiceService} from "../httpservice.service";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, RouterLink],
   providers: [HTTPServiceService],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css'
@@ -18,7 +19,7 @@ export class EmployeeListComponent {
   employees$: Observable<Employee[]>;
 
 
-  constructor(private httpsService: HTTPServiceService, private keycloak: KeycloakService) {
+  constructor(private router: Router, private httpsService: HTTPServiceService, private keycloak: KeycloakService) {
     this.employees$ = of([]);
     this.fetchData();
 
@@ -34,10 +35,7 @@ export class EmployeeListComponent {
 
   protected editEmployee(id: number){
     if(id > 0)
-      window.location.href = window.location.origin+'/employee/'+id.toString();
+      this.router.navigateByUrl('/employee/'+id.toString());
   }
 
-  protected addEmployee():void{
-    window.location.href = window.location.origin+'/addemployee';
-  }
 }

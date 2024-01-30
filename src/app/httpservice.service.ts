@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 import {Employee} from "./Employee";
 import {Qualification} from "./Qualification";
+import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
@@ -87,6 +88,13 @@ export class HTTPServiceService {
       error: (error) => {
         console.error('Fehler: ',error);
       }
+    });
+  }
+
+  public GetQualifications():Observable<Qualification[]>{
+    return this.http.get<Qualification[]>('/backend/qualifications', {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
     });
   }
 

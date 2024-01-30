@@ -7,11 +7,13 @@ import {Employee} from "../Employee";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Observable, of} from "rxjs";
 import {Qualification} from "../Qualification";
+import {HTTPServiceService} from "../httpservice.service";
 
 @Component({
   selector: 'app-employee-form',
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule],
+  providers: [HTTPServiceService],
   templateUrl: './employee-form.component.html',
   styleUrl: './employee-form.component.css'
 })
@@ -24,33 +26,25 @@ export class EmployeeFormComponent implements OnInit{
   protected qualifications$: Observable<Qualification[]>;
   @ViewChildren('checkboxRef') checkboxes!: QueryList<ElementRef>;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private modalService: NgbModal) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private modalService: NgbModal, private httpService: HTTPServiceService) {
     this.qualifications$ = of([]);
     this.fetchQualifications();
   }
 
   protected fetchQualifications() {
-    this.qualifications$ = this.http.get<Employee[]>('/backend/qualifications', {
+    this.qualifications$ = this.http.get<Qualification[]>('/backend/qualifications', {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     });
   }
 
   protected createQualification(inputRef: HTMLInputElement):void{
-    let body = {
-      skill: inputRef.value
-    }
-    this.http.post('/backend/qualifications', body).subscribe({
-      next: (response) => {
-        console.log('Serverantwort: ',response);
+    this.httpService.CreateQualification(inputRef.value).then((result) => {
+      if(result){
         this.fetchQualifications();
-        inputRef.value = '';
-      },
-      error: (error) => {
-        console.error('Fehler: ',error);
-        inputRef.value = '';
       }
     });
+    inputRef.value = '';
   }
 
   protected open(content: any) {
@@ -72,15 +66,8 @@ export class EmployeeFormComponent implements OnInit{
   }
 
   private getUserInfo(): void{
-    this.http.get<Employee>('/backend/employees/' + this.id, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    }).subscribe({
-      next: (data: Employee) => {
-        this.employee = data;
-      },
-      error: (error) => {
-        console.error('Es gab einen Fehler beim Abrufen des Mitarbeiters:', error);
-      }
+    this.httpService.GetEmployee(Number(this.id)).then((result) => {
+      this.employee = result;
     });
   }
 
@@ -102,24 +89,15 @@ export class EmployeeFormComponent implements OnInit{
 
 
     if (this.isUpdate) {
-      this.http.put('/backend/employees/' + this.id, this.employee).subscribe({
-        next: (response) => {
-          console.log('Serverantwort: ', response);
-        },
-        error: (error) => {
-          console.error('Fehler: ', error);
-        }
+      this.httpService.UpdateEmployee(this.employee).then((result) => {
+        if(result)
+          window.location.href = window.location.origin + '/employees';
       });
     } else {
-      this.http.post('/backend/employees', this.employee).subscribe({
-        next: (response) => {
-          console.log('Serverantwort: ', response);
-        },
-        error: (error) => {
-          console.error('Fehler: ', error);
-        }
+      this.httpService.CreateEmployee(this.employee).then((result) => {
+        if(result)
+          window.location.href = window.location.origin + '/employees';
       });
     }
-    window.location.href = window.location.origin + '/employees';
   }
 }

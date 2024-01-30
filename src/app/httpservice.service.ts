@@ -9,25 +9,33 @@ export class HTTPServiceService {
 
   constructor(private http: HttpClient) { }
 
-  public CreateEmployee(postBody:Employee):void{
-    this.http.post('/backend/employees', postBody).subscribe({
-      next: (response) => {
-        console.log('Serverantwort: ', response);
-      },
-      error: (error) => {
-        console.error('Fehler: ', error);
-      }
+  public CreateEmployee(postBody:Employee):Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this.http.post('/backend/employees', postBody).subscribe({
+        next: (response) => {
+          console.log('Serverantwort: ', response);
+          resolve(true);
+        },
+        error: (error) => {
+          console.error('Fehler: ', error);
+          resolve(false);
+        }
+      });
     });
   }
 
-  public UpdateEmployee(putBody: Employee):void{
-    this.http.put('/backend/employees/' + putBody.id, putBody).subscribe({
-      next: (response) => {
-        console.log('Serverantwort: ', response);
-      },
-      error: (error) => {
-        console.error('Fehler: ', error);
-      }
+  public UpdateEmployee(putBody: Employee):Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this.http.put('/backend/employees/'+putBody.id, putBody).subscribe({
+        next: (response) => {
+          console.log('Serverantwort: ', response);
+          resolve(true);
+        },
+        error: (error) => {
+          console.error('Fehler: ', error);
+          resolve(false);
+        }
+      });
     });
   }
 
@@ -42,17 +50,21 @@ export class HTTPServiceService {
     });
   }
 
-  public CreateQualification(skill: string):void{
+  public CreateQualification(skill: string): Promise<boolean> {
     let body = {
       "skill": skill
-    }
-    this.http.post('/backend/qualifications', body).subscribe({
-      next: (response) => {
-        console.log('Serverantwort: ',response);
-      },
-      error: (error) => {
-        console.error('Fehler: ',error);
-      }
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post('/backend/qualifications', body).subscribe({
+        next: (response) => {
+          console.log('Serverantwort: ', response);
+          resolve(true);
+        },
+        error: (error) => {
+          console.error('Fehler: ', error);
+          resolve(false);
+        }
+      });
     });
   }
 
@@ -75,6 +87,21 @@ export class HTTPServiceService {
       error: (error) => {
         console.error('Fehler: ',error);
       }
+    });
+  }
+
+  public GetEmployee(id: number):Promise<Employee>{
+    return new Promise((resolve, reject) => {
+      this.http.get<Employee>('/backend/employees/'+id).subscribe({
+        next: (response) => {
+          console.log('Serverantwort: ', response);
+          resolve(response);
+        },
+        error: (error) => {
+          console.error('Fehler: ', error);
+          resolve(error);
+        }
+      });
     });
   }
 

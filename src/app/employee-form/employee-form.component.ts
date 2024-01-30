@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 import {Employee} from "../Employee";
@@ -26,7 +26,7 @@ export class EmployeeFormComponent implements OnInit{
   protected qualifications$: Observable<Qualification[]>;
   @ViewChildren('checkboxRef') checkboxes!: QueryList<ElementRef>;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private modalService: NgbModal, private httpService: HTTPServiceService) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private modalService: NgbModal, private httpService: HTTPServiceService) {
     this.qualifications$ = of([]);
     this.fetchQualifications();
   }
@@ -47,7 +47,7 @@ export class EmployeeFormComponent implements OnInit{
   protected open(content: any) {
     this.modalService.open(content).result.then((result) => {
       if (result === 'confirm') {
-        window.location.href = window.location.origin+'/employees';
+        this.router.navigateByUrl('/employees');
       }
     });
   }
@@ -88,12 +88,12 @@ export class EmployeeFormComponent implements OnInit{
     if (this.isUpdate) {
       this.httpService.UpdateEmployee(this.employee).then((result) => {
         if(result)
-          window.location.href = window.location.origin + '/employees';
+          this.router.navigateByUrl('/employees');
       });
     } else {
       this.httpService.CreateEmployee(this.employee).then((result) => {
         if(result)
-          window.location.href = window.location.origin + '/employees';
+          this.router.navigateByUrl('/employees');
       });
     }
   }

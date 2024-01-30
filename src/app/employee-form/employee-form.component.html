@@ -99,8 +99,9 @@
 <!-- Buttons -->
 <div class="fixed-bottom-bar">
   <button *ngIf="isUpdate; else noUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Speichern</button>
+  <button *ngIf="isUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-danger me-3">Löschen</button>
   <ng-template #noUpdate>
     <button (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Hinzufügen</button>
   </ng-template>
-  <button class="btn btn-danger" (click)="open(confirmModal)">Abbrechen</button>
+  <button class="btn btn-secondary" (click)="open(confirmModal)">Abbrechen</button>
 </div>

@@ -32,10 +32,7 @@ export class EmployeeFormComponent implements OnInit{
   }
 
   protected fetchQualifications() {
-    this.qualifications$ = this.http.get<Qualification[]>('/backend/qualifications', {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json')
-    });
+    this.qualifications$ = this.httpService.GetQualifications();
   }
 
   protected createQualification(inputRef: HTMLInputElement):void{

@@ -4,11 +4,12 @@ import {Observable, of} from "rxjs";
 import {KeycloakService} from "keycloak-angular";
 import {Qualification} from "../Qualification";
 import {HTTPServiceService} from "../httpservice.service";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-qualification-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   providers: [HTTPServiceService],
   templateUrl: './qualification-list.component.html',
   styleUrl: './qualification-list.component.css'
@@ -16,7 +17,7 @@ import {HTTPServiceService} from "../httpservice.service";
 export class QualificationListComponent {
   qualifications$: Observable<Qualification[]>;
 
-  constructor(private httpService: HTTPServiceService, private keycloak: KeycloakService) {
+  constructor(private http: HttpClient,private httpService: HTTPServiceService, private keycloak: KeycloakService) {
     this.qualifications$ = of([]);
     this.fetchData();
   }

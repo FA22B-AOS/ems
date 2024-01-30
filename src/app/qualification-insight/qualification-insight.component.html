@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <div class="table-container">
+    <h2>{{this.qualification.skill}}</h2>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Vorname</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let e of employees" (click)="this.editEmployee(e.id ?? -1)">
+        <td>{{e.lastName }}</td>
+        <td>{{e.firstName}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<div class="fixed-bottom-bar">
+  <button type="button" class="btn btn-secondary">Logout</button>
+</div>
+
+
+

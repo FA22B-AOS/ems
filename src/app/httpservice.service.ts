@@ -51,6 +51,28 @@ export class HTTPServiceService {
     });
   }
 
+  public GetEmployee(id: number):Promise<Employee>{
+    return new Promise((resolve, reject) => {
+      this.http.get<Employee>('/backend/employees/'+id).subscribe({
+        next: (response) => {
+          console.log('Serverantwort: ', response);
+          resolve(response);
+        },
+        error: (error) => {
+          console.error('Fehler: ', error);
+          resolve(error);
+        }
+      });
+    });
+  }
+
+  public GetEmployees():Observable<Employee[]>{
+    return this.http.get<Employee[]>('/backend/employees', {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    });
+  }
+
   public CreateQualification(skill: string): Promise<boolean> {
     let body = {
       "skill": skill
@@ -98,9 +120,13 @@ export class HTTPServiceService {
     });
   }
 
-  public GetEmployee(id: number):Promise<Employee>{
+  public GetEmployeesByQualification(id: number):Promise<any>{
     return new Promise((resolve, reject) => {
-      this.http.get<Employee>('/backend/employees/'+id).subscribe({
+      this.http.get<any>('/backend/qualifications/'+id+'/employees', {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/json')
+
+      }).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
           resolve(response);
@@ -111,7 +137,7 @@ export class HTTPServiceService {
         }
       });
     });
+
+
   }
-
-
 }

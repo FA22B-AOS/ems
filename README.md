@@ -1,7 +1,6 @@
 # Starter für das LF10 Projekt
 
 Erstelle einen Fork dieses Projektes auf Github.
-Branchprotection Test
 
 ## Requirements
 

@@ -137,7 +137,26 @@ export class HTTPServiceService {
         }
       });
     });
-
-
   }
+
+  public DeleteQualificationFromEmployee(id: number, skill:string):Promise<boolean>{
+    let requestBody = {
+      "skill": skill
+    }
+    return new Promise((resolve, reject) => {
+      this.http.delete('/backend/employees/'+id+'/qualifications',{
+        body: (requestBody)
+      }).subscribe({
+        next: (response) => {
+          console.log('Serverantwort: ', response);
+          resolve(true);
+        },
+        error: (error) => {
+          console.error('Fehler: ', error);
+          resolve(false);
+        }
+      })
+    })
+  }
+
 }

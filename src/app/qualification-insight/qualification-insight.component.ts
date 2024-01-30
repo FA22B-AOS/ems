@@ -49,4 +49,11 @@ export class QualificationInsightComponent {
     if(id > 0)
       window.location.href = window.location.origin+'/employee/'+id.toString();
   }
+
+  protected removeEmployee(id: number):void{
+    this.httpService.DeleteQualificationFromEmployee(id,this.qualification.skill ?? '').then((result) => {
+      if(result)
+        this.fetchData();
+    })
+  }
 }

@@ -38,8 +38,8 @@ export class QualificationInsightComponent {
     })
   }
 
-  protected fetchData() {
-    this.httpService.GetEmployeesByQualification(Number(this.id)).then((result) => {
+  protected fetchData() : Promise<any> {
+    return this.httpService.GetEmployeesByQualification(Number(this.id)).then((result) => {
       this.body = result;
       this.employees = this.body.employees;
       this.qualification = this.body.qualification;
@@ -66,14 +66,28 @@ export class QualificationInsightComponent {
 
   protected deleteQualification() : void  {
     if (this.employees.length == 0 || confirm('Es haben noch Mitarbeiter die Qualifikation, soll sie trotzdem gelöscht werden?')) {
+      let deleting : boolean = false;
       this.employees.forEach(value => {
-        this.httpService.DeleteQualificationFromEmployee(value.id ?? -1, this.qualification.skill ?? "");
+        this.httpService.DeleteQualificationFromEmployee(value.id ?? -1, this.qualification.skill ?? "").then(value1 =>
+        {
+          this.fetchData().then(value2 => {
+            if (this.employees.length == 0 && !deleting) {
+              deleting = true;
+              this.httpService.DeleteQualification(this.qualification.id ?? -1).then((result) => {
+                if (result)
+                  this.router.navigateByUrl('/qualifications')
+              });
+            }
+          });
+        });
       });
 
-      this.httpService.DeleteQualification(this.qualification.id ?? -1).then((result) => {
-        if (result)
-          this.router.navigateByUrl('/qualifications')
-      });
+      if (this.employees.length == 0) {
+        this.httpService.DeleteQualification(this.qualification.id ?? -1).then((result) => {
+          if (result)
+            this.router.navigateByUrl('/qualifications')
+        });
+      }
     }
   }
 }

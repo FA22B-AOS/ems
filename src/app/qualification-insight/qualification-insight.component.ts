@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ActivatedRoute, RouterLink} from "@angular/router";
-import {Observable, of} from "rxjs";
 import {Qualification} from "../Qualification";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {HttpService} from "../http.service";
 import {KeycloakService} from "keycloak-angular";
 import {Employee} from "../Employee";
 import {Router} from "@angular/router";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-qualification-insight',
@@ -28,7 +28,7 @@ export class QualificationInsightComponent {
   protected qualification: Qualification;
   protected id: string | null;
 
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private httpService: HttpService, private keycloak: KeycloakService) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private httpService: HttpService, private modalService: NgbModal, private keycloak: KeycloakService) {
     this.employees = [];
     this.qualification = new Qualification();
     this.id = null;
@@ -65,7 +65,7 @@ export class QualificationInsightComponent {
   }
 
   protected deleteQualification() : void  {
-    if (this.employees.length == 0 || confirm('Es haben noch Mitarbeiter die Qualifikation, soll sie trotzdem gelöscht werden?')) {
+    if (this.employees.length > 0) {
       let deleting : boolean = false;
       this.employees.forEach(value => {
         this.httpService.DeleteQualificationFromEmployee(value.id ?? -1, this.qualification.skill ?? "").then(value1 =>
@@ -81,7 +81,8 @@ export class QualificationInsightComponent {
           });
         });
       });
-
+    }
+    else {
       if (this.employees.length == 0) {
         this.httpService.DeleteQualification(this.qualification.id ?? -1).then((result) => {
           if (result)
@@ -90,4 +91,15 @@ export class QualificationInsightComponent {
       }
     }
   }
+
+  protected open(content: any) {
+    this.modalService.open(content).result.then((result) => {
+      if (result === 'confirm') {
+        this.router.navigateByUrl('/qualification/'+this.qualification.id);
+      }
+      if (result === 'confirmDelete')
+        this.deleteQualification();
+    });
+  }
+
 }

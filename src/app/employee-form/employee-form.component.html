@@ -53,11 +53,13 @@
           </div>
 
           <!-- Checkboxen für vorhandene Qualifikationen -->
-          <div style="max-height: 200px; overflow-y: auto;">
+          <div (click)="labelClick($event)" style="max-height: 200px; overflow-y: auto;">
             <ul class="list-unstyled">
               <li *ngFor="let q of qualifications$ | async">
-                <input type="checkbox" [id]="'qualification' + q.id" #checkboxRef [checked]="hasQualification(q)"> <!--[checked]="isQualificationInSkillset(q)">-->
-                <label for="qualification{{q.id}}">{{q.skill}}</label>
+                <div class="custom-checkbox-container">
+                  <input type="checkbox" [id]="'qualification' + q.id" #checkboxRef [checked]="hasQualification(q)">
+                  <label [for]="'qualification' + q.id" class="custom-label">{{q.skill}}</label>
+                </div>
               </li>
             </ul>
           </div>

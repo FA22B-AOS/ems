@@ -109,6 +109,10 @@ export class EmployeeFormComponent implements OnInit{
     }
   }
 
+  labelClick(event: Event) {
+    event.stopPropagation(); // Verhindert das Schließen des Dropdowns beim Klicken auf das Label
+  }
+
   protected deleteEmployee():void{
     this.httpService.DeleteEmployee(this.employee.id ?? -1).then((result) => {
       if(result)

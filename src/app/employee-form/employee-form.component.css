@@ -14,3 +14,17 @@
 .dropdown-menu li:hover {
   background-color: #f8f9fa;
 }
+li:hover{
+  background-color: #31373D !important;
+}
+.custom-checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px;
+}
+.custom-label {
+  flex-grow: 1;
+  margin-left: 10px;
+  text-align: left;
+}

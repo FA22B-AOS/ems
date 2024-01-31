@@ -40,7 +40,7 @@ export class HttpService {
       "firstName": putBody.firstName,
       "lastName": putBody.lastName,
       "postcode": putBody.postcode,
-      "city": putBody.phone,
+      "city": putBody.city,
       "street": putBody.street,
       "phone": putBody.phone,
       "skillSet": qualificationIDs

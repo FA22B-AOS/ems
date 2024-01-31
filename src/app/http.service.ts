@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class HTTPServiceService {
+export class HttpService {
 
   constructor(private http: HttpClient) { }
 
@@ -40,15 +40,19 @@ export class HTTPServiceService {
     });
   }
 
-  public DeleteEmployee(id: number):void{
-    this.http.delete('/backend/employees/'+id).subscribe({
-      next: (response) => {
-        console.log('Serverantwort: ', response);
-      },
-      error: (error) => {
-        console.error('Fehler: ', error);
-      }
-    });
+  public DeleteEmployee(id: number):Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this.http.delete('/backend/employees/'+id).subscribe({
+        next: (response) => {
+          console.log('Serverantwort: ', response);
+          resolve(true);
+        },
+        error: (error) => {
+          console.error('Fehler: ', error);
+          resolve(false);
+        }
+      });
+    })
   }
 
   public GetEmployee(id: number):Promise<Employee>{

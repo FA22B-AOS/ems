@@ -7,13 +7,13 @@ import {Employee} from "../Employee";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Observable, of} from "rxjs";
 import {Qualification} from "../Qualification";
-import {HTTPServiceService} from "../httpservice.service";
+import {HttpService} from "../http.service";
 
 @Component({
   selector: 'app-employee-form',
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule],
-  providers: [HTTPServiceService],
+  providers: [HttpService],
   templateUrl: './employee-form.component.html',
   styleUrl: './employee-form.component.css'
 })
@@ -26,7 +26,7 @@ export class EmployeeFormComponent implements OnInit{
   protected qualifications$: Observable<Qualification[]>;
   @ViewChildren('checkboxRef') checkboxes!: QueryList<ElementRef>;
 
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private modalService: NgbModal, private httpService: HTTPServiceService) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private modalService: NgbModal, private httpService: HttpService) {
     this.qualifications$ = of([]);
     this.fetchQualifications();
   }
@@ -49,6 +49,8 @@ export class EmployeeFormComponent implements OnInit{
       if (result === 'confirm') {
         this.router.navigateByUrl('/employees');
       }
+      if (result === 'confirmDelete')
+        this.deleteEmployee();
     });
   }
 
@@ -96,5 +98,12 @@ export class EmployeeFormComponent implements OnInit{
           this.router.navigateByUrl('/employees');
       });
     }
+  }
+
+  protected deleteEmployee():void{
+    this.httpService.DeleteEmployee(this.employee.id ?? -1).then((result) => {
+      if(result)
+        this.router.navigateByUrl('/employees');
+    })
   }
 }

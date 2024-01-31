@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <div class="table-container">
-    <h2>{{this.qualification.skill}}</h2>
+    <h2>Qualifikation: {{this.qualification.skill}}</h2>
     <table class="table">
       <thead>
       <tr>
@@ -24,6 +24,11 @@
       </tr>
       </tbody>
     </table>
+    <h3>Mitarbeiter mit dieser Qualifikation</h3>
+    @if(this.employees.length == 0) {
+      Kein Mitarbeiter hat diese Qualifikation.
+    }
+    @else {
     <table class="table table-hover">
       <thead>
       <tr>
@@ -40,6 +45,7 @@
       </tr>
       </tbody>
     </table>
+    }
   </div>
 
 </div>

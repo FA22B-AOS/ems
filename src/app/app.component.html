@@ -1,5 +1,10 @@
 <main>
   <section>
-    <router-outlet></router-outlet>
+    <app-sidebar [isMobile]="isMobile"></app-sidebar>
+    @if(isMobile) {
+      <div class="container">
+         <router-outlet></router-outlet>
+      </div>
+    }
   </section>
 </main>

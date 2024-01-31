@@ -4,14 +4,14 @@ import {Observable, of} from "rxjs";
 import {HttpClientModule} from "@angular/common/http";
 import {Employee} from "../Employee";
 import {KeycloakService} from "keycloak-angular";
-import {HTTPServiceService} from "../httpservice.service";
+import {HttpService} from "../http.service";
 import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
   imports: [CommonModule, HttpClientModule, RouterLink],
-  providers: [HTTPServiceService],
+  providers: [HttpService],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css'
 })
@@ -19,7 +19,7 @@ export class EmployeeListComponent {
   employees$: Observable<Employee[]>;
 
 
-  constructor(private router: Router, private httpsService: HTTPServiceService, private keycloak: KeycloakService) {
+  constructor(private router: Router, private httpsService: HttpService, private keycloak: KeycloakService) {
     this.employees$ = of([]);
     this.fetchData();
 

@@ -4,7 +4,7 @@ import {ActivatedRoute, RouterLink} from "@angular/router";
 import {Observable, of} from "rxjs";
 import {Qualification} from "../Qualification";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {HTTPServiceService} from "../httpservice.service";
+import {HttpService} from "../http.service";
 import {KeycloakService} from "keycloak-angular";
 import {Employee} from "../Employee";
 import {Router} from "@angular/router";
@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
   selector: 'app-qualification-insight',
   standalone: true,
   imports: [CommonModule, HttpClientModule, RouterLink],
-  providers: [HTTPServiceService],
+  providers: [HttpService],
   templateUrl: './qualification-insight.component.html',
   styleUrl: './qualification-insight.component.css'
 })
@@ -28,7 +28,7 @@ export class QualificationInsightComponent {
   protected qualification: Qualification;
   protected id: string | null;
 
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient,private httpService: HTTPServiceService, private keycloak: KeycloakService) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private httpService: HttpService, private keycloak: KeycloakService) {
     this.employees = [];
     this.qualification = new Qualification();
     this.id = null;

@@ -65,9 +65,15 @@ export class QualificationInsightComponent {
   }
 
   protected deleteQualification() : void  {
-    this.httpService.DeleteQualification(this.qualification.id ?? -1).then((result) => {
-      if (result)
-        this.router.navigateByUrl('/qualifications')
-    });
+    if (this.employees.length == 0 || confirm('Es haben noch Mitarbeiter die Qualifikation, soll sie trotzdem gelöscht werden?')) {
+      this.employees.forEach(value => {
+        this.httpService.DeleteQualificationFromEmployee(value.id ?? -1, this.qualification.skill ?? "");
+      });
+
+      this.httpService.DeleteQualification(this.qualification.id ?? -1).then((result) => {
+        if (result)
+          this.router.navigateByUrl('/qualifications')
+      });
+    }
   }
 }

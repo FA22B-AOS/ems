@@ -19,7 +19,7 @@ export class EmployeeListComponent {
   employees$: Observable<Employee[]>;
 
 
-  constructor(private router: Router, private httpsService: HTTPServiceService, private keycloak: KeycloakService) {
+  constructor(private router: Router, private httpsService: HTTPServiceService) {
     this.employees$ = of([]);
     this.fetchData();
 
@@ -27,10 +27,6 @@ export class EmployeeListComponent {
 
   protected fetchData() {
     this.employees$ = this.httpsService.GetEmployees();
-  }
-
-  protected logout() {
-    this.keycloak.logout('http://localhost:4200/');
   }
 
   protected editEmployee(id: number){

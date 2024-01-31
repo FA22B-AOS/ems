@@ -1,48 +1,43 @@
 <div class="sidebar-wrapper">
-  <div class="sidebar">
-    <div class="sidebar-toggler" (click)="toggleSidebar()">
-      <h3>EMS</h3>
-      <span><i class="bi bi-list"></i></span>
+  <div class="sidebar d-flex flex-column flex-shrink-0 text-white">
+    <div class="sidebar-toggler d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" (click)="toggleSidebar()">
+      <span class="fs-4">EMS</span>
+      <i class="bi bi-list"></i>
     </div>
     <hr>
-    <ul class="list-unstyled">
-      <li (click)="toggleLinkClick()">
-        <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#qualification-collapse" data-bs-aria-expanded="false"><i class="bi bi-lightbulb"></i><span>Qualifikationen</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-          <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-        </svg></a>
-        <div class="collapse" id="qualification-collapse" style="">
-          <ul class="list-unstyled bg-secondary">
-            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Ovaerview</span></a></li>
-            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Updates</span></a></li>
-            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Reports</span></a></li>
-          </ul>
-        </div>
-      </li>
-      <li>
-        <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#employees-collapse" data-bs-aria-expanded="false"><i class="bi bi-people"></i><span>Personalwesen</span></a>
+    <ul class="nav nav-pills flex-column mb-auto list-unstyled">
+      <li class="nav-item">
+        <div class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#employees-collapse" data-bs-aria-expanded="false"><i class="bi bi-people me-2"></i><span>Personalwesen</span></div>
         <div class="collapse" id="employees-collapse" style="">
           <ul class="list-unstyled bg-secondary">
-            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Overview</span></a></li>
-            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Updates</span></a></li>
-            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Reports</span></a></li>
+            <li><div routerLink="/employees" class="nav-link text-white"><span>Übersicht</span></div></li>
+            <li><div href="#" class="nav-link text-white"><span>Mitarbeiter anlegen</span></div></li>
           </ul>
         </div>
       </li>
-      <li>
-        <a href="#" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#settings-collapse" data-bs-aria-expanded="false"><i class="bi bi-sliders"></i><span>Einstellungen</span></a>
-        <div class="collapse" id="settings-collapse" style="">
+      <li class="nav-item" (click)="toggleLinkClick()">
+        <div class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#qualification-collapse" data-bs-aria-expanded="false"><i class="bi bi-lightbulb me-2"></i><span>Qualifikationen</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+          </svg>
+        </div>
+        <div class="collapse" id="qualification-collapse" style="">
           <ul class="list-unstyled bg-secondary">
-            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Overview</span></a></li>
-            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Updates</span></a></li>
-            <li><a href="#" class="sidebar-link text-white"><i class=""></i><span>Reports</span></a></li>
+            <li><div routerLink="/qualifications" class="nav-link text-white"><span>Übersicht</span></div></li>
+            <li><div href="#" class="nav-link text-white"><span>Qualifikation anlegen</span></div></li>
           </ul>
         </div>
+      </li>
+      <li class="nav-item">
+        <div routerLink="/" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#settings-collapse" data-bs-aria-expanded="false"><i class="bi bi-sliders me-2"></i><span>Einstellungen</span></div>
       </li>
     </ul>
+    <hr class="text-white">
+    <button class="sidebar-footer btn btn-danger" (click)="logout()"><i class="bi bi-box-arrow-left me-2"></i><span>Logout</span></button>
   </div>
   @if(!isMobile) {
     <div class="main-content">
-      <div class="container">
+      <div>
         <router-outlet></router-outlet>
       </div>
     </div>

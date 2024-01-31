@@ -63,4 +63,11 @@ export class QualificationInsightComponent {
     this.httpService.UpdateQualification(this.qualification);
     input.value = '';
   }
+
+  protected deleteQualification() : void  {
+    this.httpService.DeleteQualification(this.qualification.id ?? -1).then((result) => {
+      if (result)
+        this.router.navigateByUrl('/qualifications')
+    });
+  }
 }

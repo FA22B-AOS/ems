@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+.fixed-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #31373D; /* Hintergrundfarbe der Leiste */
+  padding: 10px 0;
+  text-align: center;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+

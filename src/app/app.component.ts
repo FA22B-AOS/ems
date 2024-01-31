@@ -6,12 +6,12 @@ import {SidebarComponent} from "./sidebar/sidebar.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, EmployeeListComponent, SidebarComponent],
+  imports: [CommonModule, EmployeeListComponent, RouterOutlet, SidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'lf10StarterNew';
+  title = 'EMS';
   @HostBinding('class.mobile') isMobile = false;
 
   constructor() {

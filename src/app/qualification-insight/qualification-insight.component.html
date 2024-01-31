@@ -19,7 +19,7 @@
           </div>
         </td>
         <td>
-          <a (click)="deleteQualification()" class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i></a>
+          <a (click)="open(confirmDeleteModal)" class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i></a>
         </td>
       </tr>
       </tbody>
@@ -46,12 +46,39 @@
       </tbody>
     </table>
     }
+
+    <!-- Modal -->
+    <ng-template #confirmModal let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Sind Sie sicher, dass Sie abbrechen möchten?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('confirm')">Ja</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
+      </div>
+    </ng-template>
+
+    <ng-template #confirmDeleteModal let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Sind Sie sicher, dass Sie die Qualifikation "{{this.qualification.skill}}" löschen möchten?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('confirmDelete')">Ja</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
+      </div>
+    </ng-template>
   </div>
 
 </div>
 <div class="fixed-bottom-bar">
   <button routerLink="/qualifications" type="button" class="btn btn-secondary">Zurück</button>
 </div>
-
-
 

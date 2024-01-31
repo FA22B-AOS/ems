@@ -56,7 +56,7 @@
           <div style="max-height: 200px; overflow-y: auto;">
             <ul class="list-unstyled">
               <li *ngFor="let q of qualifications$ | async">
-                <input type="checkbox" [id]="'qualification' + q.id" #checkboxRef> <!--[checked]="isQualificationInSkillset(q)">-->
+                <input type="checkbox" [id]="'qualification' + q.id" #checkboxRef [checked]="hasQualification(q)"> <!--[checked]="isQualificationInSkillset(q)">-->
                 <label for="qualification{{q.id}}">{{q.skill}}</label>
               </li>
             </ul>

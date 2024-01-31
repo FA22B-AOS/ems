@@ -57,4 +57,10 @@ export class QualificationInsightComponent {
         this.fetchData();
     })
   }
+
+  protected changeName(input: HTMLInputElement):void{
+    this.qualification.skill = input.value;
+    this.httpService.UpdateQualification(this.qualification);
+    input.value = '';
+  }
 }

@@ -1,6 +1,12 @@
 <div class="container mt-5">
   <div class="table-container">
     <h2>{{this.qualification.skill}}</h2>
+    <div class="input-group mb-2">
+      <div class="col-lg-5 col-xs-12">
+        <input #rename type="text" class="form-control" placeholder="Neuer Name" aria-label="Neuer Name">
+      </div>
+      <a (click)="changeName(rename)" class="btn btn-outline-primary"><i class="bi bi-floppy-fill"></i></a>
+    </div>
     <table class="table table-hover">
       <thead>
       <tr>
@@ -21,7 +27,7 @@
 
 </div>
 <div class="fixed-bottom-bar">
-  <button routerLink="/qualifications" type="button" class="btn btn-secondary">Abbrechen</button>
+  <button routerLink="/qualifications" type="button" class="btn btn-secondary">Zurück</button>
 </div>
 
 

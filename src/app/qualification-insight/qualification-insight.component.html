@@ -1,12 +1,34 @@
 <div class="container mt-5">
   <div class="table-container">
-    <h2>{{this.qualification.skill}}</h2>
-    <div class="input-group mb-2">
-      <div class="col-lg-5 col-xs-12">
-        <input #rename type="text" class="form-control" placeholder="Neuer Name" aria-label="Neuer Name">
-      </div>
-      <a (click)="changeName(rename)" class="btn btn-outline-primary"><i class="bi bi-floppy-fill"></i></a>
-    </div>
+    <h2>Qualifikation: {{this.qualification.skill}}</h2>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Umbenennen</th>
+        <th>Löschen</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <div class="input-group mb-2">
+            <div class="col-lg-5 col-xs-12">
+              <input #rename type="text" class="form-control" placeholder="Neuer Name" aria-label="Neuer Name">
+            </div>
+            <a (click)="changeName(rename)" class="btn btn-outline-primary"><i class="bi bi-floppy-fill"></i></a>
+          </div>
+        </td>
+        <td>
+          <a (click)="deleteQualification()" class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <h3>Mitarbeiter mit dieser Qualifikation</h3>
+    @if(this.employees.length == 0) {
+      Kein Mitarbeiter hat diese Qualifikation.
+    }
+    @else {
     <table class="table table-hover">
       <thead>
       <tr>
@@ -23,6 +45,7 @@
       </tr>
       </tbody>
     </table>
+    }
   </div>
 
 </div>

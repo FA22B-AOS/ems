@@ -126,14 +126,18 @@ export class HttpService {
     });
   }
 
-  public DeleteQualification(id: number):void{
-    this.http.delete('/backend/qualifications/'+id).subscribe({
-      next: (response) => {
-        console.log('Serverantwort: ',response);
-      },
-      error: (error) => {
-        console.error('Fehler: ',error);
-      }
+  public DeleteQualification(id: number):Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this.http.delete('/backend/qualifications/' + id).subscribe({
+        next: (response) => {
+          console.log('Serverantwort: ', response);
+          resolve(true);
+        },
+        error: (error) => {
+          console.error('Fehler: ', error);
+          resolve(false);
+        }
+      });
     });
   }
 

@@ -21,7 +21,7 @@ export class HttpService {
       "skillSet": qualificationIDs
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.post('/backend/employees', body).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
@@ -46,7 +46,7 @@ export class HttpService {
       "skillSet": qualificationIDs
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.put('/backend/employees/'+putBody.id, body).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
@@ -61,7 +61,7 @@ export class HttpService {
   }
 
   public DeleteEmployee(id: number):Promise<boolean>{
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.delete('/backend/employees/'+id).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
@@ -76,7 +76,7 @@ export class HttpService {
   }
 
   public GetEmployee(id: number):Promise<Employee>{
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.get<Employee>('/backend/employees/'+id).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
@@ -97,19 +97,19 @@ export class HttpService {
     });
   }
 
-  public CreateQualification(skill: string): Promise<boolean> {
+  public CreateQualification(skill: string): Promise<Qualification> {
     let body = {
       "skill": skill
     };
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve,reject) => {
       this.http.post('/backend/qualifications', body).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
-          resolve(true);
+          resolve(response);
         },
         error: (error) => {
           console.error('Fehler: ', error);
-          resolve(false);
+          reject(error);
         }
       });
     });

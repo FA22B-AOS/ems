@@ -18,7 +18,7 @@ li:hover{
   background-color: #31373D !important;
 }
 .custom-checkbox-container {
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: space-between;
   padding: 2px;

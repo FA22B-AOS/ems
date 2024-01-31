@@ -53,8 +53,8 @@
           </div>
 
           <!-- Checkboxen für vorhandene Qualifikationen -->
-          <div (click)="labelClick($event)" style="max-height: 200px; overflow-y: auto;">
-            <ul class="list-unstyled">
+          <div (click)="$event.stopPropagation()" style="max-height: 200px; overflow-y: auto;">
+            <ul id="qualificationList" class="list-unstyled">
               <li *ngFor="let q of qualifications$ | async">
                 <div class="custom-checkbox-container">
                   <input type="checkbox" [id]="'qualification' + q.id" #checkboxRef [checked]="hasQualification(q)">
@@ -71,7 +71,7 @@
     <!-- Modal -->
     <ng-template #confirmModal let-modal>
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">Änderungen verwerfen</h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
       </div>
       <div class="modal-body">
@@ -85,7 +85,7 @@
 
   <ng-template #confirmDeleteModal let-modal>
     <div class="modal-header">
-      <h5 class="modal-title">Modal title</h5>
+      <h5 class="modal-title">Mitarbeiter löschen</h5>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
     </div>
     <div class="modal-body">

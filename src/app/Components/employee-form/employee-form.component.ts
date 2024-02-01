@@ -3,11 +3,11 @@ import {CommonModule} from '@angular/common';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {Employee} from "../Employee";
+import {Employee} from "../../Models/Employee";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Observable, of} from "rxjs";
-import {Qualification} from "../Qualification";
-import {HttpService} from "../http.service";
+import {Qualification} from "../../Models/Qualification";
+import {HttpService} from "../../Services/http.service";
 
 @Component({
   selector: 'app-employee-form',

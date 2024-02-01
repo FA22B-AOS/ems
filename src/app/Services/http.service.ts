@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
-import {Employee} from "./Employee";
-import {Qualification} from "./Qualification";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Employee} from "../Models/Employee";
+import {Qualification} from "../Models/Qualification";
 import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
@@ -127,7 +127,7 @@ export class HttpService {
   }
 
   public DeleteQualification(id: number):Promise<boolean>{
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.delete('/backend/qualifications/' + id).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
@@ -149,7 +149,7 @@ export class HttpService {
   }
 
   public GetEmployeesByQualification(id: number):Promise<any>{
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.get<any>('/backend/qualifications/'+id+'/employees', {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/json')
@@ -171,7 +171,7 @@ export class HttpService {
     let requestBody = {
       "skill": skill
     }
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.delete('/backend/employees/'+id+'/qualifications',{
         body: (requestBody)
       }).subscribe({

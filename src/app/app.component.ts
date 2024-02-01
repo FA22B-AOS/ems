@@ -1,7 +1,7 @@
 import {Component, HostBinding, HostListener} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {EmployeeListComponent} from "./employee-list/employee-list.component";
-import {SidebarComponent} from "./sidebar/sidebar.component";
+import {EmployeeListComponent} from "./Components/employee-list/employee-list.component";
+import {SidebarComponent} from "./Components/sidebar/sidebar.component";
 import {RouterOutlet} from "@angular/router";
 
 @Component({

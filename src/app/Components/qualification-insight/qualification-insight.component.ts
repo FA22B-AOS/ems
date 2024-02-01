@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ActivatedRoute, RouterLink} from "@angular/router";
-import {Qualification} from "../Qualification";
+import {Qualification} from "../../Models/Qualification";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {HttpService} from "../http.service";
-import {KeycloakService} from "keycloak-angular";
-import {Employee} from "../Employee";
+import {HttpService} from "../../Services/http.service";
+import {Employee} from "../../Models/Employee";
 import {Router} from "@angular/router";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
@@ -28,7 +27,7 @@ export class QualificationInsightComponent {
   protected qualification: Qualification;
   protected id: string | null;
 
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private httpService: HttpService, private modalService: NgbModal, private keycloak: KeycloakService) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private httpService: HttpService, private modalService: NgbModal) {
     this.employees = [];
     this.qualification = new Qualification();
     this.id = null;

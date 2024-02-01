@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {Observable, of} from "rxjs";
+import {CommonModule} from '@angular/common';
+import {map, Observable, of} from "rxjs";
 import {HttpClientModule} from "@angular/common/http";
-import {Employee} from "../Employee";
+import {Employee} from "../../Models/Employee";
 import {KeycloakService} from "keycloak-angular";
-import {HttpService} from "../http.service";
+import {HttpService} from "../../Services/http.service";
 import {Router, RouterLink} from "@angular/router";
 
 @Component({
@@ -17,6 +17,7 @@ import {Router, RouterLink} from "@angular/router";
 })
 export class EmployeeListComponent {
   employees$: Observable<Employee[]>;
+  protected showCancel = false;
 
 
   constructor(private router: Router, private httpsService: HttpService, private keycloak: KeycloakService) {
@@ -27,6 +28,26 @@ export class EmployeeListComponent {
 
   protected fetchData() {
     this.employees$ = this.httpsService.GetEmployees();
+  }
+
+  protected filterEmployees(input: HTMLInputElement):void{
+    if(input.value === '')
+      return;
+    this.employees$ = this.employees$.pipe(
+      map((employees: Employee[]) => {
+        return employees.filter((employee) => {
+          const fullName = `${employee.lastName}, ${employee.firstName}`;
+          return fullName.includes(input.value);
+        });
+      })
+    );
+    this.showCancel = true;
+  }
+
+  protected cancelSearch(input: HTMLInputElement){
+    this.fetchData();
+    this.showCancel = false;
+    input.value = '';
   }
 
   protected logout() {

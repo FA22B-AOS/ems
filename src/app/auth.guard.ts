@@ -9,7 +9,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true; // Der Benutzer ist bereits angemeldet
   } else {
     // Der Benutzer ist nicht angemeldet, leite ihn zu Keycloak weiter
-    keycloak.login({redirectUri: window.location.origin});
+    keycloak.login({redirectUri: window.location.origin+'/'+route.url.join('/')});
     return false;
   }
 };

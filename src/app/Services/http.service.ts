@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
-import {Employee} from "./Employee";
-import {Qualification} from "./Qualification";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Employee} from "../Models/Employee";
+import {Qualification} from "../Models/Qualification";
 import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class HTTPServiceService {
+export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  public CreateEmployee(postBody:Employee):Promise<boolean>{
-    return new Promise((resolve, reject) => {
-      this.http.post('/backend/employees', postBody).subscribe({
+  public CreateEmployee(postBody:Employee, qualificationIDs: number[]):Promise<boolean>{
+    let body = {
+      "firstName": postBody.firstName,
+      "lastName": postBody.lastName,
+      "postcode": postBody.postcode,
+      "city": postBody.phone,
+      "street": postBody.street,
+      "phone": postBody.phone,
+      "skillSet": qualificationIDs
+    }
+
+    return new Promise((resolve) => {
+      this.http.post('/backend/employees', body).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
           resolve(true);
@@ -25,9 +35,19 @@ export class HTTPServiceService {
     });
   }
 
-  public UpdateEmployee(putBody: Employee):Promise<boolean>{
-    return new Promise((resolve, reject) => {
-      this.http.put('/backend/employees/'+putBody.id, putBody).subscribe({
+  public UpdateEmployee(putBody: Employee, qualificationIDs: number[]):Promise<boolean>{
+    let body = {
+      "firstName": putBody.firstName,
+      "lastName": putBody.lastName,
+      "postcode": putBody.postcode,
+      "city": putBody.city,
+      "street": putBody.street,
+      "phone": putBody.phone,
+      "skillSet": qualificationIDs
+    }
+
+    return new Promise((resolve) => {
+      this.http.put('/backend/employees/'+putBody.id, body).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
           resolve(true);
@@ -40,19 +60,23 @@ export class HTTPServiceService {
     });
   }
 
-  public DeleteEmployee(id: number):void{
-    this.http.delete('/backend/employees/'+id).subscribe({
-      next: (response) => {
-        console.log('Serverantwort: ', response);
-      },
-      error: (error) => {
-        console.error('Fehler: ', error);
-      }
-    });
+  public DeleteEmployee(id: number):Promise<boolean>{
+    return new Promise((resolve) => {
+      this.http.delete('/backend/employees/'+id).subscribe({
+        next: (response) => {
+          console.log('Serverantwort: ', response);
+          resolve(true);
+        },
+        error: (error) => {
+          console.error('Fehler: ', error);
+          resolve(false);
+        }
+      });
+    })
   }
 
   public GetEmployee(id: number):Promise<Employee>{
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.get<Employee>('/backend/employees/'+id).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
@@ -73,19 +97,19 @@ export class HTTPServiceService {
     });
   }
 
-  public CreateQualification(skill: string): Promise<boolean> {
+  public CreateQualification(skill: string): Promise<Qualification> {
     let body = {
       "skill": skill
     };
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve,reject) => {
       this.http.post('/backend/qualifications', body).subscribe({
         next: (response) => {
           console.log('Serverantwort: ', response);
-          resolve(true);
+          resolve(response);
         },
         error: (error) => {
           console.error('Fehler: ', error);
-          resolve(false);
+          reject(error);
         }
       });
     });
@@ -102,14 +126,18 @@ export class HTTPServiceService {
     });
   }
 
-  public DeleteQualification(id: number):void{
-    this.http.delete('/backend/qualifications/'+id).subscribe({
-      next: (response) => {
-        console.log('Serverantwort: ',response);
-      },
-      error: (error) => {
-        console.error('Fehler: ',error);
-      }
+  public DeleteQualification(id: number):Promise<boolean>{
+    return new Promise((resolve) => {
+      this.http.delete('/backend/qualifications/' + id).subscribe({
+        next: (response) => {
+          console.log('Serverantwort: ', response);
+          resolve(true);
+        },
+        error: (error) => {
+          console.error('Fehler: ', error);
+          resolve(false);
+        }
+      });
     });
   }
 
@@ -121,7 +149,7 @@ export class HTTPServiceService {
   }
 
   public GetEmployeesByQualification(id: number):Promise<any>{
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.get<any>('/backend/qualifications/'+id+'/employees', {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/json')
@@ -143,7 +171,7 @@ export class HTTPServiceService {
     let requestBody = {
       "skill": skill
     }
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.http.delete('/backend/employees/'+id+'/qualifications',{
         body: (requestBody)
       }).subscribe({

@@ -1,0 +1,84 @@
+<div class="container mt-5">
+  <div class="table-container">
+    <h2>Qualifikation: {{this.qualification.skill}}</h2>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Umbenennen</th>
+        <th>Löschen</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <div class="input-group mb-2">
+            <div class="col-lg-5 col-xs-12">
+              <input #rename type="text" class="form-control" placeholder="Neuer Name" aria-label="Neuer Name">
+            </div>
+            <a (click)="changeName(rename)" class="btn btn-outline-primary"><i class="bi bi-floppy-fill"></i></a>
+          </div>
+        </td>
+        <td>
+          <a (click)="open(confirmDeleteModal)" class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <h3>Mitarbeiter mit dieser Qualifikation</h3>
+    @if(this.employees.length == 0) {
+      Kein Mitarbeiter hat diese Qualifikation.
+    }
+    @else {
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Vorname</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let e of employees">
+        <td (click)="this.editEmployee(e.id ?? -1)">{{e.lastName }}</td>
+        <td (click)="this.editEmployee(e.id ?? -1)">{{e.firstName}}</td>
+        <td (click)="this.removeEmployee(e.id ?? -1)"><i class="bi bi-trash-fill"></i></td>
+      </tr>
+      </tbody>
+    </table>
+    }
+
+    <!-- Modal -->
+    <ng-template #confirmModal let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Sind Sie sicher, dass Sie abbrechen möchten?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('confirm')">Ja</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
+      </div>
+    </ng-template>
+
+    <ng-template #confirmDeleteModal let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Sind Sie sicher, dass Sie die Qualifikation "{{this.qualification.skill}}" löschen möchten?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('confirmDelete')">Ja</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
+      </div>
+    </ng-template>
+  </div>
+
+</div>
+<div class="fixed-bottom-bar">
+  <button routerLink="/qualifications" type="button" class="btn btn-secondary">Zurück</button>
+</div>
+

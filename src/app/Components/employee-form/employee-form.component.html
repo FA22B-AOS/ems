@@ -53,37 +53,25 @@
           </div>
 
           <!-- Checkboxen für vorhandene Qualifikationen -->
-          <div style="max-height: 200px; overflow-y: auto;">
-            <ul class="list-unstyled">
+          <div (click)="$event.stopPropagation()" style="max-height: 200px; overflow-y: auto;">
+            <ul id="qualificationList" class="list-unstyled">
               <li *ngFor="let q of qualifications$ | async">
-                <input type="checkbox" [id]="'qualification' + q.id" #checkboxRef> <!--[checked]="isQualificationInSkillset(q)">-->
-                <label for="qualification{{q.id}}">{{q.skill}}</label>
+                <div class="custom-checkbox-container">
+                  <input type="checkbox" [id]="'qualification' + q.id" #checkboxRef [checked]="hasQualification(q)">
+                  <label [for]="'qualification' + q.id" class="custom-label">{{q.skill}}</label>
+                </div>
               </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-
-
-    <!--<div class="mb-3">
-      <label class="form-label">Qualifikationen</label>
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-          Qualifikationen auswählen
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li *ngFor="let q of qualifications$ | async"><input type="checkbox" id="qualification{{q.id}}"> <label for="qualification{{q.id}}">{{q.skill}}</label></li>
-        </ul>
-      </div>
-    </div>-->
-
   </form>
 
     <!-- Modal -->
     <ng-template #confirmModal let-modal>
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title">Änderungen verwerfen</h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
       </div>
       <div class="modal-body">
@@ -94,12 +82,26 @@
         <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
       </div>
     </ng-template>
+
+  <ng-template #confirmDeleteModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Mitarbeiter löschen</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel')"></button>
+    </div>
+    <div class="modal-body">
+      <p>Sind Sie sicher, dass Sie den Mitarbeiter "{{this.employee.lastName}}, {{this.employee.firstName}}" löschen möchten?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('confirmDelete')">Ja</button>
+      <button type="button" class="btn btn-primary" (click)="modal.dismiss('cancel')">Nein</button>
+    </div>
+  </ng-template>
 </div>
 
 <!-- Buttons -->
 <div class="fixed-bottom-bar">
   <button *ngIf="isUpdate; else noUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Speichern</button>
-  <button *ngIf="isUpdate" (click)="employeeForm.ngSubmit.emit()" class="btn btn-danger me-3">Löschen</button>
+  <button *ngIf="isUpdate" (click)="open(confirmDeleteModal)" class="btn btn-danger me-3">Löschen</button>
   <ng-template #noUpdate>
     <button (click)="employeeForm.ngSubmit.emit()" class="btn btn-primary me-3">Hinzufügen</button>
   </ng-template>

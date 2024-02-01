@@ -1,6 +1,11 @@
 <div class="container mt-5">
   <div class="table-container">
     <h2>Mitarbeiterübersicht</h2>
+    <div class="input-group mb-2">
+      <input #filter type="text" class="form-control" placeholder="Suche" aria-label="Suche">
+      <a (click)="this.filterEmployees(filter)" class="btn btn-outline-primary"><i class="bi bi-search"></i></a>
+      <a *ngIf="showCancel" (click)="this.cancelSearch(filter)" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i></a>
+    </div>
     <table class="table table-hover">
       <thead>
       <tr>

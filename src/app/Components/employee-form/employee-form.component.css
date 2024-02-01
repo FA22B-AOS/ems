@@ -1,0 +1,30 @@
+.container {
+  max-width: 600px;
+}
+.dropdown-menu {
+  padding: 10px;
+}
+.dropdown-menu label {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+.dropdown-menu li {
+  cursor: pointer;
+}
+.dropdown-menu li:hover {
+  background-color: #f8f9fa;
+}
+li:hover{
+  background-color: #31373D !important;
+}
+.custom-checkbox-container {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px;
+}
+.custom-label {
+  flex-grow: 1;
+  margin-left: 10px;
+  text-align: left;
+}

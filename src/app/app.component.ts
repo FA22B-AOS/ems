@@ -1,7 +1,8 @@
-import {Component, HostBinding, HostListener} from '@angular/core';
+import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {EmployeeListComponent} from "./employee-list/employee-list.component";
 import {SidebarComponent} from "./sidebar/sidebar.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -12,14 +13,4 @@ import {SidebarComponent} from "./sidebar/sidebar.component";
 })
 export class AppComponent {
   title = 'EMS';
-  @HostBinding('class.mobile') isMobile = false;
-
-  constructor() {
-    this.isMobile = window.innerWidth < 600;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.isMobile = window.innerWidth < 600;
-  }
 }

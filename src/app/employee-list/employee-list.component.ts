@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {Observable, of} from "rxjs";
 import {HttpClientModule} from "@angular/common/http";
 import {Employee} from "../Employee";
-import {KeycloakService} from "keycloak-angular";
 import {HTTPServiceService} from "../httpservice.service";
 import {Router, RouterLink} from "@angular/router";
 
@@ -19,7 +18,7 @@ export class EmployeeListComponent {
   employees$: Observable<Employee[]>;
 
 
-  constructor(private router: Router, private httpsService: HTTPServiceService, private keycloak: KeycloakService) {
+  constructor(private router: Router, private httpsService: HTTPServiceService) {
     this.employees$ = of([]);
     this.fetchData();
 
@@ -27,10 +26,6 @@ export class EmployeeListComponent {
 
   protected fetchData() {
     this.employees$ = this.httpsService.GetEmployees();
-  }
-
-  protected logout() {
-    this.keycloak.logout('http://localhost:4200/');
   }
 
   protected editEmployee(id: number){

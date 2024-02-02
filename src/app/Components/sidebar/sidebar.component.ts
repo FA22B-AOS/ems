@@ -1,33 +1,42 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {EmployeeListComponent} from "../employee-list/employee-list.component";
-import {RouterOutlet} from "@angular/router";
+import {RouterLink, RouterOutlet} from "@angular/router";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, EmployeeListComponent, RouterOutlet],
+  imports: [CommonModule, EmployeeListComponent, RouterLink, RouterOutlet],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  @Input() isMobile : Boolean | undefined
+
+  constructor(protected keycloak: KeycloakService) {
+  }
 
   toggleSidebar() {
-    // @ts-ignore
-    const sidebar = document.querySelector(".sidebar-wrapper");
-    // @ts-ignore
-    sidebar.classList.toggle("collapsed");
+    const sidebarElement = document.querySelector(".sidebar-wrapper") as HTMLDivElement;
+    sidebarElement.classList.toggle("collapsed");
 
-    // Remove the collapse class from all submenus
-    const collapseElements = document.querySelectorAll('.collapse');
-    // @ts-ignore
-    for (const collapseElement of collapseElements) {
+    const sidebarTogglerIcon = document.querySelector(".sidebar-toggler i") as HTMLSpanElement;
+
+    if (!sidebarElement.classList.contains("collapsed")) {
+      sidebarTogglerIcon.classList.add("bi-x-lg");
+    } else {
+      sidebarTogglerIcon.classList.remove("bi-x-lg");
+    }
+
+    const collapseElements = document.querySelectorAll('.collapse') as NodeListOf<HTMLDivElement>;
+    const collapseElementsArray = Array.from(collapseElements);
+
+    for (const collapseElement of collapseElementsArray) {
       collapseElement.classList.remove('show');
     }
   }
 
-  toggleLinkClick(){
+  toggleDropdown(){
     // @ts-ignore
     const sidebar = document.querySelector(".sidebar-wrapper");
     // @ts-ignore
@@ -35,6 +44,11 @@ export class SidebarComponent {
       // @ts-ignore
       sidebar.classList.remove("collapsed");
     }
+
+  }
+
+  logout() {
+    this.keycloak.logout(window.location.origin);
 
   }
 }

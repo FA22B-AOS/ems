@@ -48,7 +48,7 @@ export class SidebarComponent {
   }
 
   logout() {
-    this.keycloak.logout();
+    this.keycloak.logout(window.location.origin);
 
   }
 }

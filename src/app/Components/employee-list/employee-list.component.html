@@ -9,12 +9,14 @@
     <table class="table table-hover">
       <thead>
       <tr>
+        <th class="text-center">PersNr.</th>
         <th>Nachname</th>
         <th>Vorname</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let e of employees$ | async" (click)="editEmployee(e.id || -1)">
+        <td class="text-center">{{e.id}}</td>
         <td>{{e.lastName }}</td>
         <td>{{e.firstName}}</td>
       </tr>

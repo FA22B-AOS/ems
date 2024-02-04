@@ -2,17 +2,25 @@
   <div class="table-container">
     <h2>Qualifikationenübersicht</h2>
     <div class="input-group mb-2">
+      <input #filter type="text" class="form-control" placeholder="Suche" aria-label="Suche">
+      <a (click)="this.filterQualifications(filter)" class="btn btn-outline-primary"><i class="bi bi-search"></i></a>
+      <a *ngIf="showCancel" (click)="this.cancelSearch(filter)" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i></a>
+    </div>
+    <div class="input-group mb-2">
       <input #newQualification type="text" class="form-control" placeholder="Neue Qualifikation" aria-label="Neue Qualifikation">
       <a (click)="this.addQuali(newQualification)" class="btn btn-outline-primary">+</a>
     </div>
+
     <table class="table table-hover">
       <thead>
       <tr>
-        <th>Qualifikationen</th>
+        <th>ID</th>
+        <th>Qualifikation</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let q of qualifications$ | async" (click)="viewQuali(q.id || -1)">
+        <td>{{q.id}}</td>
         <td>{{q.skill }}</td>
       </tr>
       </tbody>

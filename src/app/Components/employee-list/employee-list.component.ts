@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {map, Observable, of} from "rxjs";
 import {HttpClientModule} from "@angular/common/http";
 import {Employee} from "../../Models/Employee";
-import {KeycloakService} from "keycloak-angular";
 import {HttpService} from "../../Services/http.service";
 import {Router, RouterLink} from "@angular/router";
 
@@ -20,7 +19,7 @@ export class EmployeeListComponent {
   protected showCancel = false;
 
 
-  constructor(private router: Router, private httpsService: HttpService, private keycloak: KeycloakService) {
+  constructor(private router: Router, private httpsService: HttpService) {
     this.employees$ = of([]);
     this.fetchData();
 
@@ -36,8 +35,8 @@ export class EmployeeListComponent {
     this.employees$ = this.employees$.pipe(
       map((employees: Employee[]) => {
         return employees.filter((employee) => {
-          const fullName = `${employee.lastName}, ${employee.firstName}`;
-          return fullName.includes(input.value);
+          const filterString = `${employee.id},${employee.lastName},${employee.firstName}`.split(" ").join("");
+          return filterString.includes(input.value.split(" ").join(""));
         });
       })
     );
@@ -48,10 +47,6 @@ export class EmployeeListComponent {
     this.fetchData();
     this.showCancel = false;
     input.value = '';
-  }
-
-  protected logout() {
-    this.keycloak.logout('http://localhost:4200/');
   }
 
   protected editEmployee(id: number){

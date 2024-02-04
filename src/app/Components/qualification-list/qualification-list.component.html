@@ -9,11 +9,13 @@
       <thead>
       <tr>
         <th>Qualifikationen</th>
+        <th class="mobileOnlyCell">&nbsp;</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let q of qualifications$ | async" (click)="viewQuali(q.id || -1)">
         <td>{{q.skill }}</td>
+        <td class="mobileOnlyCell"><i class="bi bi-caret-right-fill"></i></td>
       </tr>
       </tbody>
     </table>

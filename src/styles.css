@@ -13,3 +13,18 @@
 .mb-6{
   margin-bottom: 4rem;
 }
+
+.mobileOnlyCell{
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+
+  .mobileOnlyCell{
+    display: table-cell;
+  }
+
+}
+
+
+

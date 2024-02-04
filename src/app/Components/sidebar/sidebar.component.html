@@ -5,35 +5,37 @@
       <span><i class="bi bi-list"></i></span>
     </div>
     <hr class="mt-0 text-white">
-    <ul class="list-unstyled mb-auto">
-      <li>
-        <a routerLink="" class="sidebar-action text-white"><i class="bi bi-house"></i><span>Home</span></a>
-      </li>
-      <li>
-        <div (click)="toggleDropdown()" class="sidebar-action" data-bs-toggle="collapse" data-bs-target="#qualification-collapse" data-bs-aria-expanded="false"><i class="bi bi-people-fill"></i><span>Personalwesen</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-          <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-        </svg></div>
-        <div class="collapse" id="qualification-collapse" style="">
-          <ul class="list-unstyled bg-secondary">
-            <li><a routerLink="employees" class="sidebar-link text-white"><i class=""></i><span>Übersicht</span></a></li>
-            <li><a routerLink="addemployee" class="sidebar-link text-white"><i class=""></i><span>Mitarbeiter anlegen</span></a></li>
-          </ul>
-        </div>
-      </li>
-      <li>
-        <div (click)="toggleDropdown()" class="sidebar-action" data-bs-toggle="collapse" data-bs-target="#employees-collapse" data-bs-aria-expanded="false"><i class="bi bi-lightbulb-fill"></i><span>Qualifikationen</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-          <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-        </svg></div>
-        <div class="collapse" id="employees-collapse" style="">
-          <ul class="list-unstyled bg-secondary">
-            <li><a routerLink="qualifications" class="sidebar-link text-white"><i class=""></i><span>Übersicht</span></a></li>
-          </ul>
-        </div>
-      </li>
-      <li>
-        <a routerLink="" class="sidebar-action text-white"><i class="bi bi-gear-wide-connected"></i><span>Einstellungen</span></a>
-      </li>
-    </ul>
+    <div class=" navbar-nav-scroll mb-auto">
+      <ul class="list-unstyled">
+        <li>
+          <a routerLink="" class="sidebar-action text-white"><i class="bi bi-house"></i><span>Home</span></a>
+        </li>
+        <li>
+          <div (click)="toggleDropdown()" class="sidebar-action" data-bs-toggle="collapse" data-bs-target="#qualification-collapse" data-bs-aria-expanded="false"><i class="bi bi-people-fill"></i><span>Personalwesen</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+          </svg></div>
+          <div class="collapse" id="qualification-collapse" style="">
+            <ul class="list-unstyled bg-secondary">
+              <li><a routerLink="employees" class="sidebar-link text-white"><i class=""></i><span>Übersicht</span></a></li>
+              <li><a routerLink="addemployee" class="sidebar-link text-white"><i class=""></i><span>Mitarbeiter anlegen</span></a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div (click)="toggleDropdown()" class="sidebar-action" data-bs-toggle="collapse" data-bs-target="#employees-collapse" data-bs-aria-expanded="false"><i class="bi bi-lightbulb-fill"></i><span>Qualifikationen</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+          </svg></div>
+          <div class="collapse" id="employees-collapse" style="">
+            <ul class="list-unstyled bg-secondary">
+              <li><a routerLink="qualifications" class="sidebar-link text-white"><i class=""></i><span>Übersicht</span></a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a routerLink="" class="sidebar-action text-white"><i class="bi bi-gear-wide-connected"></i><span>Einstellungen</span></a>
+        </li>
+      </ul>
+    </div>
     @if(keycloak.isLoggedIn()){
       <div class="sidebar-footer">
         <div (click)="logout()" class="sidebar-action bg-danger logout"><i class="bi bi-box-arrow-left"></i><span>Abmelden</span></div>
@@ -41,13 +43,11 @@
     }
   </div>
     <div class="main-content">
-      <div class="row mobile mb-0">
+      <div class="fixed-top mobile mb-0">
         <div>
           <button (click)="toggleSidebar()" class="btn"><i class="bi bi-list"></i></button>
         </div>
       </div>
-      <div class="container">
         <router-outlet></router-outlet>
-      </div>
     </div>
 </div>

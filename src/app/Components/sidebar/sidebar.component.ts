@@ -12,8 +12,12 @@ import {KeycloakService} from "keycloak-angular";
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  protected profileName: any;
 
   constructor(protected keycloak: KeycloakService) {
+    if (keycloak.isLoggedIn()) {
+      keycloak.loadUserProfile().then(value => this.profileName = value.username);
+    }
   }
 
   toggleSidebar() {

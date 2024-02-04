@@ -61,6 +61,11 @@
   overflow: hidden;
 }
 
+.profile {
+  padding: 10px;
+  min-height: 54px;
+}
+
 .sidebar-action:hover {
   background-color: #3b434b;
 }

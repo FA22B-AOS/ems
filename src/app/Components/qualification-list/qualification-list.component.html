@@ -10,18 +10,19 @@
       <input #newQualification type="text" class="form-control" placeholder="Neue Qualifikation" aria-label="Neue Qualifikation">
       <a (click)="this.addQuali(newQualification)" class="btn btn-outline-primary">+</a>
     </div>
-
     <table class="table table-hover">
       <thead>
       <tr>
         <th>ID</th>
-        <th>Qualifikation</th>
+        <th>Qualifikationen</th>
+        <th class="mobileOnlyCell">&nbsp;</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let q of qualifications$ | async" (click)="viewQuali(q.id || -1)">
         <td>{{q.id}}</td>
         <td>{{q.skill }}</td>
+        <td class="mobileOnlyCell"><i class="bi bi-caret-right-fill"></i></td>
       </tr>
       </tbody>
     </table>

@@ -5,6 +5,7 @@ import {authGuard} from "./auth.guard";
 import {LandingPageComponent} from "./Components/landing-page/landing-page.component";
 import {QualificationListComponent} from "./Components/qualification-list/qualification-list.component";
 import {QualificationInsightComponent} from "./Components/qualification-insight/qualification-insight.component";
+import {PageNotFoundComponent} from "./Components/page-not-found/page-not-found.component";
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -13,4 +14,5 @@ export const routes: Routes = [
   { path: 'qualification/:id', component: QualificationInsightComponent, canActivate: [authGuard] }, //Placeholder
   { path: 'addemployee', component: EmployeeFormComponent, canActivate: [authGuard] },
   { path: 'employee/:id', component: EmployeeFormComponent, canActivate: [authGuard] },
+  { path: '**', component: PageNotFoundComponent},
 ];
